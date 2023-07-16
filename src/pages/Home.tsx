@@ -1,11 +1,11 @@
-import AllBooks from "../components/AllBooks";
+import AllBookSection from "../components/AllBookSection";
 import HeroSection from "../components/HeroSection";
 
 export default function Home() {
   return (
     <>
       <HeroSection></HeroSection>
-      <AllBooks></AllBooks>
+      <AllBookSection></AllBookSection>
     </>
   );
 }

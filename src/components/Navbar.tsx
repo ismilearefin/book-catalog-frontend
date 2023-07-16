@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
+    
   const user = false;
+  
   return (
-    <div className="navbar bg-base-100 border-b-2">
+    <div className="navbar bg-base-100 border-b-2 px-14">
       <div className="flex-1">
-        <Link to='/' className="normal-case text-xl">BOOKS</Link>
+        <Link to='/' className="normal-case text-2xl">BOOKS</Link>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link to="/allbooks">All Books</Link>
+            <Link  to="/allbooks">All Books</Link>
           </li>
           {!user && (
             <>

@@ -4,6 +4,8 @@ import Home from "../pages/Home";
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
 import App from "../App";
+import BookDetails from "../pages/BookDetails";
+import AllBooks from "../pages/AllBooks";
 
 
 export const router = createBrowserRouter([
@@ -16,8 +18,12 @@ export const router = createBrowserRouter([
                 element:<Home></Home>
             },
             {
+                path:'/allbooks',
+                element:<AllBooks></AllBooks>
+            },
+            {
                 path:'/book',
-                element:<h1>All Single Book info</h1>
+                element:<BookDetails></BookDetails>
             }
         ]
     },
