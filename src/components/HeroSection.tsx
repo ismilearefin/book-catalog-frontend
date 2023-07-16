@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 export default function HeroSection() {
@@ -10,7 +11,7 @@ export default function HeroSection() {
     <div>
       <h1 className="text-5xl font-bold">Unleash Literary Adventures</h1>
       <p className="py-6">Welcome to our BOOKS website, a literary sanctuary for avid readers and book enthusiasts. Discover a vast collection of captivating stories, insightful non-fiction, and literary treasures. Immerse yourself in the world of books, explore new genres, and embark on unforgettable literary journeys. Let the pages come alive and ignite your passion for reading..</p>
-      <button className="btn btn-primary">Get Started</button>
+      <Link to='/allbooks' className="btn btn-primary">All Books</Link>
     </div>
   </div>
 </div>
