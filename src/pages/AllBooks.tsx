@@ -5,15 +5,17 @@ import BookCard from "../components/BookCard";
 
 export default function AllBooks() {
   const [value, setValue] = useState("");
+  const [books, setBooks] = useState<IBook[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  
   const handleChange = (event: any) => {
-    console.log(event.target.value);
+    setSearchQuery(event.target.value);
   };
 
   const handleSelect = (event: any) => {
     setValue(event.target.value)
   }
-console.log(value)
-  const [books, setBooks] = useState<IBook[]>([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +30,28 @@ console.log(value)
 
     void fetchData();
   }, []);
+
+
+  let BooksData;
+
+  if (value !== '') {
+    BooksData = books.filter(
+      (book) => book.genre === value || book.publicationDate === value
+      );
+      console.log(BooksData)
+    } else {
+      BooksData = books;
+    }
+
+  if(searchQuery !== ''){
+    BooksData = books.filter((book) => {
+      return book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.genre.toLowerCase().includes(searchQuery.toLowerCase());
+    });  
+  }
+    
+    console.log(BooksData)
   
   return (
     <div className="flex m-10">
@@ -35,13 +59,13 @@ console.log(value)
         <p className="mb-4">Filtering With</p>
         <div className="mb-4">
         <label className="label-text">Genre</label>
-        <select onClick={(e)=>handleSelect(e)} value={value} className="select select-primary w-full max-w-xs">
+        <select onChange={(e)=>handleSelect(e)} value={value} className="select select-primary w-full max-w-xs">
           {books.map((book)=><option key={book.title}>{book.genre}</option>)}
         </select>
         </div>
         <div>
         <label className="label-text">Publication year</label>
-        <select onClick={(e)=>handleSelect(e)} value={value} className="select select-primary w-full max-w-xs">
+        <select onChange={(e)=>handleSelect(e)} value={value} className="select select-primary w-full max-w-xs">
           {books.map((book)=><option key={book.title}>{book.publicationDate}</option>)}
         </select>
         </div>
@@ -54,7 +78,7 @@ console.log(value)
         className="input text-center mb-4 input-bordered w-full"
       />
       <div className="grid grid-cols-4 gap-3">
-      {books.map((book) => <BookCard key={book.title} book={book}></BookCard>)}
+      {BooksData.map((book) => <BookCard key={book.title} book={book}></BookCard>)}
       </div>
       </div>
     </div>
