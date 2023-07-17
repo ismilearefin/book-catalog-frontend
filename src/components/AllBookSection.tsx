@@ -7,12 +7,12 @@ import { IBook } from "../interface/Ibook";
 
 export default function AllBookSection() {
   
-  const {data, isLoading, error} = useGetBookQuery(undefined);
-console.log(data, error)
+  const {data, isLoading} = useGetBookQuery(undefined);
+
 if(isLoading){
   <h1>Loading...</h1>
 }
-  // console.log(books);
+
   return (
     <div className="grid justify-center min-h-screen">
       <h1 className="text-center text-5xl pt-10">Explore the world of books</h1>
