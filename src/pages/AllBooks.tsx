@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-
-import { IBook } from "../interface/Ibook";
+import { useState } from "react";
 import BookCard from "../components/BookCard";
+import { useGetBookQuery } from "../redux/api/bookApiSlice";
+import { IBook } from "../interface/Ibook";
 
 export default function AllBooks() {
   const [value, setValue] = useState("");
-  const [books, setBooks] = useState<IBook[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const {data, isLoading} = useGetBookQuery(undefined);
   
   const handleChange = (event: any) => {
     setSearchQuery(event.target.value);
@@ -16,42 +17,29 @@ export default function AllBooks() {
     setValue(event.target.value)
   }
 
+  let BooksData =[];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("./public/books.json");
-        const data: IBook[] = await response.json();
-        setBooks(data);
-      } catch (error) {
-        console.log("Error fetching book data:", error);
-      }
-    };
-
-    void fetchData();
-  }, []);
-
-
-  let BooksData;
-
+  if(data){
   if (value !== '') {
-    BooksData = books.filter(
-      (book) => book.genre === value || book.publicationDate === value
+    BooksData = data.data.filter(
+      (book : IBook) => book.genre === value || book.publicationDate === value
       );
-      console.log(BooksData)
     } else {
-      BooksData = books;
+      BooksData = data.data;
     }
+  }
 
   if(searchQuery !== ''){
-    BooksData = books.filter((book) => {
+    BooksData = data.data.filter((book : IBook) => {
       return book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
         book.genre.toLowerCase().includes(searchQuery.toLowerCase());
     });  
   }
     
-    console.log(BooksData)
+    if(isLoading){
+      <h1>Loading...</h1>
+    }
   
   return (
     <div className="flex m-10">
@@ -60,13 +48,13 @@ export default function AllBooks() {
         <div className="mb-4">
         <label className="label-text">Genre</label>
         <select onChange={(e)=>handleSelect(e)} value={value} className="select select-primary w-full max-w-xs">
-          {books.map((book)=><option key={book.title}>{book.genre}</option>)}
+          {data && data.data.map((book:IBook )=><option key={book._id}>{book.genre}</option>)}
         </select>
         </div>
         <div>
         <label className="label-text">Publication year</label>
         <select onChange={(e)=>handleSelect(e)} value={value} className="select select-primary w-full max-w-xs">
-          {books.map((book)=><option key={book.title}>{book.publicationDate}</option>)}
+          {data && data.data.map((book:IBook)=><option key={book._id}>{book.publicationDate}</option>)}
         </select>
         </div>
       </div>
@@ -78,7 +66,7 @@ export default function AllBooks() {
         className="input text-center mb-4 input-bordered w-full"
       />
       <div className="grid grid-cols-4 gap-3">
-      {BooksData.map((book) => <BookCard key={book.title} book={book}></BookCard>)}
+      {BooksData.map((book:IBook) => <BookCard key={book._id} book={book}></BookCard>)}
       </div>
       </div>
     </div>
