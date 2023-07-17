@@ -2,6 +2,7 @@ import { useState } from "react";
 import BookCard from "../components/BookCard";
 import { useGetBookQuery } from "../redux/api/bookApiSlice";
 import { IBook } from "../interface/Ibook";
+import { Link } from "react-router-dom";
 
 export default function AllBooks() {
   const [value, setValue] = useState("");
@@ -66,7 +67,7 @@ export default function AllBooks() {
         className="input text-center mb-4 input-bordered w-full"
       />
       <div className="grid grid-cols-4 gap-3">
-      {BooksData.map((book:IBook) => <BookCard key={book._id} book={book}></BookCard>)}
+      {BooksData.map((book:IBook) => <Link to={`/book/${book._id}`}> <BookCard key={book._id} book={book}></BookCard> </Link>)}
       </div>
       </div>
     </div>
