@@ -6,7 +6,7 @@ export default function BookCard({book} : any) {
       }
   return (
     <div
-      className="border hover:shadow-lg p-4 rounded min-h-[150px] grid justify-between items-end"
+      className="border hover:shadow-lg p-4 rounded min-h-[200px] grid justify-between items-end"
     >
       <h3 className="text-3xl">{truncateTitle(book.title)}</h3>
       <div>
