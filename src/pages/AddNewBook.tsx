@@ -1,7 +1,11 @@
 // import { FormEvent } from "react";
 
+import { useCreateBookMutation } from "../redux/api/bookApiSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function AddNewBook() {
+    const [createBook] = useCreateBookMutation();
+    const navigate = useNavigate();
 
 function handleBook(e:any){
     e.preventDefault();
@@ -11,16 +15,17 @@ function handleBook(e:any){
     const genre = form.genre.value;
     const publicationDate = form.publicationDate.value;
     const details = form.details.value;
-    const NewBook = {
+    const book = {
        title:  title,
         author: author,
         genre: genre,
         publicationDate: publicationDate,
         details: details
     }
+    createBook({book});
     form.reset()
-    console.log(NewBook)
-    console.log(title, author, genre, publicationDate, details);
+    navigate("/allbooks");
+    
 }
 
 
