@@ -12,6 +12,7 @@ export default function Form({ text, input }: Ifrom) {
 
   const navigate = useNavigate();
 const dispatch : any = useAppDispatch()
+
 const {user, isLoading} = useAppSelector(state => state.user)
 
 function handleSignup(e:any){
@@ -26,10 +27,12 @@ dispatch(loginUser({email,password}))
 
 }
 
+
 useEffect(()=>{
   if(user.email && !isLoading){
     navigate('/');
   }
+  
 },[user.email, isLoading])
 
   return (

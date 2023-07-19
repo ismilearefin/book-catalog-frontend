@@ -15,7 +15,7 @@ export default function Navbar() {
       dispatch(setUser(null));
     })
   }
-  console.log(user.email)
+  // console.log(user.email)
     
   // const user = false;
   

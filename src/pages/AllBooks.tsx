@@ -70,10 +70,8 @@ export default function AllBooks() {
       />
       <div className="grid grid-cols-4 gap-3">
       {BooksData.map((book:IBook) => <Link to={`/book/${book._id}`}> <BookCard key={book._id} book={book}></BookCard> </Link>)}
-      {user.email && <Link to='/addNew-book' className="border flex justify-center items-center text-4xl"><span className="hover:rotate-90 transition delay-150">+</span></Link>}
-      {
-        !user.email && <Link to='/signup' className="border flex justify-center items-center text-4xl"><span className="hover:rotate-90 transition delay-150">+</span></Link>
-      }
+      { <Link to='/addNew-book' className="border flex justify-center items-center text-4xl"><span className="hover:rotate-90 transition delay-150">+</span></Link>}
+      
       </div>
       
       </div>
