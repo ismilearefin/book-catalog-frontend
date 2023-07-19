@@ -1,5 +1,5 @@
 ### Live Website link
- BOOKS : [https://new-book-catalog.netlify.app/](BOOKS)
+[https://new-book-catalog.netlify.app/]
 
 ### Github Repository Link Frontend
 [https://github.com/ismilearefin/book-catalog-frontend]
