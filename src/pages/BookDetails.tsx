@@ -59,7 +59,8 @@ export default function BookDetails() {
   }
 
   const handleDelete = () => {
-    const confirm = window.confirm("Are you sure you want to delete this?");
+    if(user.email){
+      const confirm = window.confirm("Are you sure you want to delete this?");
     if (confirm) {
       deleteBook(params.id)
         .unwrap()
@@ -73,6 +74,10 @@ export default function BookDetails() {
           // Handle the error if needed
         });
     }
+    }else{
+      window.alert('Please login first')
+    }
+    
   };
   console.log(!user.email);
 
@@ -95,7 +100,7 @@ export default function BookDetails() {
         <Link to={`/edit-book/${params.id}`} className="link text-blue-800">
           Edit
         </Link>
-        <button
+        <button 
           onClick={handleDelete}
           className="link text-rose-700 text-right"
         >
