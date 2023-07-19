@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useCreateBookMutation, useGetSingleBookQuery, useUpdateBookMutation } from "../redux/api/bookApiSlice";
+import {  useGetSingleBookQuery, useUpdateBookMutation } from "../redux/api/bookApiSlice";
 
 
 export default function EditBook() {
     const params = useParams();
-    const [createBook] = useCreateBookMutation();
+    
     const [updateBook] = useUpdateBookMutation();
     const navigate = useNavigate();
     
@@ -31,9 +31,7 @@ export default function EditBook() {
       }, [data, isLoading]);
     
 
-    //   const { title, author, genre, publicationDate, details     } = data.data;
-
-// console.log(data)
+    
 function handleBookEdit(e:any) {
     e.preventDefault();
     const updatedBook = {

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link, useParams } from "react-router-dom";
-import { useGetSingleBookQuery } from "../redux/api/bookApiSlice";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useDeleteBookMutation, useGetSingleBookQuery } from "../redux/api/bookApiSlice";
 import {
   useCreateCommentMutation,
   useGetAllCommentsQuery,
@@ -8,9 +8,11 @@ import {
 
 export default function BookDetails() {
   const params = useParams();
+  const navigate = useNavigate();
 
   const [createComment, { isLoading: commentLoading }] =
     useCreateCommentMutation();
+    const [deleteBook] = useDeleteBookMutation();
   const { data, isLoading } = useGetSingleBookQuery(params.id);
   const { data: comment, isLoading: loading } = useGetAllCommentsQuery(
     params.id
@@ -51,6 +53,26 @@ export default function BookDetails() {
     createComment({ comment });
     form.reset();
   }
+
+  const handleDelete = () => {
+    const confirm = window.confirm('Are you sure you want to delete this?');
+    if(confirm) {
+      deleteBook(params.id)
+      .unwrap()
+      .then(() => {
+       
+        window.alert('successfully deleted book')
+        navigate('/allbooks')
+        // Perform any necessary actions after successful deletion
+      })
+      .catch((error) => {
+        console.error("Error deleting book:", error);
+        // Handle the error if needed
+      });
+    }
+    
+  };
+
   return (
     <div className="min-h-screen">
       {data && (
@@ -68,7 +90,7 @@ export default function BookDetails() {
       )}
       <div className="grid grid-cols-2 justify-around mx-10">
       <Link to={`/edit-book/${params.id}`} className="link text-blue-800">Edit</Link>
-          <button className="link text-rose-700 text-right">Delete</button>
+          <button onClick={handleDelete} className="link text-rose-700 text-right">Delete</button>
       </div>
       <div>
         <div className="m-6">
