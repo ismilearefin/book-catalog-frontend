@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import "./App.css";
 import { useEffect } from "react";
 import Footer from "./components/Footer";

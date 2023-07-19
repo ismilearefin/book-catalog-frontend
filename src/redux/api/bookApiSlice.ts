@@ -13,14 +13,23 @@ export const BookApi = createApi({
       }),
       invalidatesTags:['book']
     }),
+    updateBook:builder.mutation({
+      query:({id,...book})=>({
+        url: `/updateBook/${id}`,
+        method: "PATCH",
+        body: book,
+      }),
+      invalidatesTags:['book']
+    }),
     getBook: builder.query({
       query: () => "/getall-book",
       providesTags:['book']
     }),
     getSingleBook: builder.query({
       query: (id) => `getSingle-book/${id}`,
+      providesTags:['book']
     }),
   }),
 });
 
-export const { useGetBookQuery, useGetSingleBookQuery,useCreateBookMutation } = BookApi;
+export const { useGetBookQuery, useGetSingleBookQuery,useCreateBookMutation,useUpdateBookMutation } = BookApi;

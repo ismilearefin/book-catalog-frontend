@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import { FormEvent } from "react";
 
 import { useCreateBookMutation } from "../redux/api/bookApiSlice";
@@ -49,7 +50,6 @@ function handleBook(e:any){
             </form>
         </div>
         </div>
-
     </div>
   )
 }

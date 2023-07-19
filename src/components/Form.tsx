@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link, useNavigate } from "react-router-dom";
 import { createUser, loginUser } from "../redux/api/userSlice";
 import {useEffect} from 'react';
@@ -18,7 +20,6 @@ const {user, isLoading} = useAppSelector(state => state.user)
 function handleSignup(e:any){
   e.preventDefault();
   const form = e.target;
-  const username = form?.username?.value;
   const email = form.email.value;
   const password = form.password.value;
   

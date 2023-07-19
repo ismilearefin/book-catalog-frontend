@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Link, useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../redux/api/bookApiSlice";
 import {
   useCreateCommentMutation,
@@ -65,6 +66,10 @@ export default function BookDetails() {
           </div>
         </div>
       )}
+      <div className="grid grid-cols-2 justify-around mx-10">
+      <Link to={`/edit-book/${params.id}`} className="link text-blue-800">Edit</Link>
+          <button className="link text-rose-700 text-right">Delete</button>
+      </div>
       <div>
         <div className="m-6">
           <h2 className="ml-4 pb-1">Add a Comment</h2>

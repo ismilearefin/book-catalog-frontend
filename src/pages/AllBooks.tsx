@@ -1,15 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import BookCard from "../components/BookCard";
 import { useGetBookQuery } from "../redux/api/bookApiSlice";
 import { IBook } from "../interface/Ibook";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../hooks/hook";
+
 
 export default function AllBooks() {
   const [value, setValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const {user} = useAppSelector(state => state.user);
-
+ 
   const {data, isLoading} = useGetBookQuery(undefined);
   
   const handleChange = (event: any) => {
