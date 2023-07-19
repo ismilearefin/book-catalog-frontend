@@ -1,8 +1,23 @@
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../hooks/hook";
+import { signOut } from "firebase/auth";
+import { auth } from "../lib/firebase";
+import { setUser } from "../redux/api/userSlice";
 
 export default function Navbar() {
+  const {user} = useAppSelector(state => state.user);
+  const dispatch =  useAppDispatch();
+
+
+  function handleLogOut(){
+    signOut(auth)
+    .then(()=>{
+      dispatch(setUser(null));
+    })
+  }
+  console.log(user.email)
     
-  const user = false;
+  // const user = false;
   
   return (
     <div className="navbar bg-base-100 border-b-2 px-14">
@@ -14,7 +29,7 @@ export default function Navbar() {
           <li>
             <Link  to="/allbooks">All Books</Link>
           </li>
-          {!user && (
+          {!user.email && (
             <>
               <li>
                 <Link to="/signin">Sign In</Link>
@@ -24,9 +39,9 @@ export default function Navbar() {
               </li>
             </>
           )}
-          {user && (
+          {user.email && (
             <li>
-              <button>Log Out</button>
+              <button onClick={handleLogOut}>Log Out</button>
             </li>
           )}
         </ul>

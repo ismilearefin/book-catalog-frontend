@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-
+import userReducer from '../redux/api/userSlice';
 import { BookApi } from "./api/bookApiSlice";
 import { CommentApi } from "./api/commentApiSlice";
 // ...
 
 export const store = configureStore({
   reducer: {
-    // book: bookReducer,
+    user: userReducer,
     [BookApi.reducerPath]: BookApi.reducer,
     [CommentApi.reducerPath]: CommentApi.reducer
   },
