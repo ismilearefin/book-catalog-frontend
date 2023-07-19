@@ -1,18 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useDeleteBookMutation, useGetSingleBookQuery } from "../redux/api/bookApiSlice";
+import {
+  useDeleteBookMutation,
+  useGetSingleBookQuery,
+} from "../redux/api/bookApiSlice";
 import {
   useCreateCommentMutation,
   useGetAllCommentsQuery,
 } from "../redux/api/commentApiSlice";
+import { useAppSelector } from "../hooks/hook";
 
 export default function BookDetails() {
   const params = useParams();
   const navigate = useNavigate();
-
+  const { user } = useAppSelector((state) => state.user);
   const [createComment, { isLoading: commentLoading }] =
     useCreateCommentMutation();
-    const [deleteBook] = useDeleteBookMutation();
+  const [deleteBook] = useDeleteBookMutation();
   const { data, isLoading } = useGetSingleBookQuery(params.id);
   const { data: comment, isLoading: loading } = useGetAllCommentsQuery(
     params.id
@@ -55,23 +59,22 @@ export default function BookDetails() {
   }
 
   const handleDelete = () => {
-    const confirm = window.confirm('Are you sure you want to delete this?');
-    if(confirm) {
+    const confirm = window.confirm("Are you sure you want to delete this?");
+    if (confirm) {
       deleteBook(params.id)
-      .unwrap()
-      .then(() => {
-       
-        window.alert('successfully deleted book')
-        navigate('/allbooks')
-        // Perform any necessary actions after successful deletion
-      })
-      .catch((error) => {
-        console.error("Error deleting book:", error);
-        // Handle the error if needed
-      });
+        .unwrap()
+        .then(() => {
+          window.alert("successfully deleted book");
+          navigate("/allbooks");
+          // Perform any necessary actions after successful deletion
+        })
+        .catch((error) => {
+          console.error("Error deleting book:", error);
+          // Handle the error if needed
+        });
     }
-    
   };
+  console.log(!user.email);
 
   return (
     <div className="min-h-screen">
@@ -89,23 +92,36 @@ export default function BookDetails() {
         </div>
       )}
       <div className="grid grid-cols-2 justify-around mx-10">
-      <Link to={`/edit-book/${params.id}`} className="link text-blue-800">Edit</Link>
-          <button onClick={handleDelete} className="link text-rose-700 text-right">Delete</button>
+        <Link to={`/edit-book/${params.id}`} className="link text-blue-800">
+          Edit
+        </Link>
+        <button
+          onClick={handleDelete}
+          className="link text-rose-700 text-right"
+        >
+          Delete
+        </button>
       </div>
       <div>
         <div className="m-6">
           <h2 className="ml-4 pb-1">Add a Comment</h2>
           <form onSubmit={(e) => handleComment(e)} className="flex ml-4">
             <textarea
+              disabled={!user.email}
               name="comment"
               className="w-1/3 border p-1"
               placeholder="comment..."
             ></textarea>
-            <button disabled={commentLoading} className="px-8 btn-primary">
+            <button disabled={!user.email} className="px-8 btn-primary">
               {commentLoading ? "Submitting..." : "Submit"}
             </button>
           </form>
           <ul className="list-disc m-4">
+            {!user.email && (
+              <p className="text-gray-400 ">
+                You are unable to comment ! Please login first
+              </p>
+            )}
             {comment.data.length ? (
               comment.data.map((text: any) => (
                 <li key={text._id}>{text.comment}</li>

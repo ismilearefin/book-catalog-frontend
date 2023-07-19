@@ -43,18 +43,19 @@ function handleBookEdit(e:any) {
       details,
     };
 
-    const id = params.id
+    const id = params.id;
 
     updateBook({id,...updatedBook})
       .unwrap()
       .then((response) => {
-        console.log("Book updated:", response);
+        console.log(response)
+        window.alert("Book updated successfully");
         navigate("/allbooks");
       })
       .catch((error) => {
         console.error("Error updating book:", error);
       });
-console.log(updatedBook)
+// console.log(updatedBook)
 }
 
   if (isLoading) {

@@ -25,6 +25,7 @@ function handleBook(e:any){
     }
     createBook({book});
     form.reset()
+    window.alert("Book created successfully")
     navigate("/allbooks");
     
 }
